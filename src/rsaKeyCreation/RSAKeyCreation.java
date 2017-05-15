@@ -1,10 +1,11 @@
 package rsaKeyCreation;
 
-import java.nio.ByteBuffer;
-import java.util.LinkedList;
-import java.util.List;
+import java.io.IOException;
+import java.security.KeyPair;
+import java.security.KeyPairGenerator;
+import java.security.NoSuchAlgorithmException;
 
-import utility.IOController;
+import ioControll.KeyWriter;
 
 /*
  * Kann das hier eine SchluesselpaarFactory werden? bzw ein singleton?
@@ -17,45 +18,48 @@ import utility.IOController;
  */
 public class RSAKeyCreation {	
 	
-	private IOController controller;
-	private final static String PATH = "/keys/";
+	private final static String PATH = "res/keys/";
 	private final static String FILE_EXTENTION_PUBIC = ".pub";
 	private final static String FILE_EXTENTION_PRIVATE = ".prv";
-
+	private final static String ALGORITHM = "RSA";
+	private final static int KEY_LENGTH = 2048;
+	
+	private KeyWriter keyWriter;
+	
 	public RSAKeyCreation() {
-		this.controller = new IOController();
+		this.keyWriter = new KeyWriter();
 	}
 	
 	
-	public void createKeyPeer(String owner){
+	public void createKeyPeer(String fileName) throws NoSuchAlgorithmException, IOException{
 		
-		this.createPublicKey(owner);
-		this.createPrivateKey(owner);
+		KeyPairGenerator generator = KeyPairGenerator.getInstance(ALGORITHM);
+		generator.initialize(KEY_LENGTH);
 		
-	}
+		KeyPair keyPair = generator.genKeyPair();
+			
+		this.keyWriter.writeFileBlockList(keyPair.getPublic(), PATH + fileName + FILE_EXTENTION_PUBIC);
+		this.keyWriter.writeFileBlockList(keyPair.getPrivate(), PATH + fileName + FILE_EXTENTION_PRIVATE);
+		
+	}	
 	
-	// private Key
-	/*
-	 * Hier entstehen byte array, die als Datei über den IOController geschrieben werden
-	 */
-	private void createPublicKey(String owner){
-		List<byte[]> toWriteLis = new LinkedList<byte[]>();
+	public static void main(String[] args) {
 		
-		byte[] lenghtOwner = ByteBuffer.allocate(4).putInt(owner.length()).array();
-		byte[] ownerName = owner.getBytes();
+		if(args.length == 1){
+			RSAKeyCreation rsaKeyCreation = new RSAKeyCreation();
+			try {
+				rsaKeyCreation.createKeyPeer(args[0]);
+			} catch (NoSuchAlgorithmException | IOException e) {
+				e.printStackTrace();
+			}
+			
+		} else {
+			throw new IllegalArgumentException("valid argument: <inhabername>");
+		}
 		
-		
-		this.controller.writeFileBlockList(toWriteLis, PATH + owner + FILE_EXTENTION_PUBIC);
-		
+
 	}
-	
-	private void createPrivateKey(String owner){
-		List<byte[]> toWriteLis = new LinkedList<byte[]>();
-		
-		
-		this.controller.writeFileBlockList(toWriteLis, PATH + owner + FILE_EXTENTION_PRIVATE);
-		
-	}
+
 	
 	
 
