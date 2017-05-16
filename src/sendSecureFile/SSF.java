@@ -60,6 +60,7 @@ public class SSF {
 
 	// c.
 	private SecretKey generateAESKey() throws NoSuchAlgorithmException {
+		
 		KeyGenerator generator = KeyGenerator.getInstance(ALGORITHM_AES);
 		generator.init(KEY_AES_LENGTH);
 		return generator.generateKey();
@@ -101,23 +102,23 @@ public class SSF {
 
 		ByteBuffer bb = ByteBuffer.allocate(8 + encryptKeyAES.length + signatureKeyAES.length + encryptedFile.length);
 		
-		// 1.
+		// 1. Länge des verschlüsselten geheimen Schlüssels
 		bb.putInt(encryptKeyAES.length);
 		
-		// 2.
+		// 2. Verschlüsselter geheimer Schlüssel
 		bb.put(encryptKeyAES);
 		
-		// 3.
+		// 3. Länge der Signature des geheimen Schlüssel
 		bb.putInt(signatureKeyAES.length);
 		
-		// 4.
+		// 4. Signature des geheimen Schlüssels
 		bb.put(signatureKeyAES);
 		
-		// 5.
+		// 5. Länge der algorithmischen Parameter des geheimen Schlüssel
 
-		// 6.
+		// 6. Algorithmische Parameter des geheimen Schüssels
 
-		// 7.
+		// 7. Verschlüsselte Dateidaten
 		bb.put(encryptedFile);
 
 		return bb.array();

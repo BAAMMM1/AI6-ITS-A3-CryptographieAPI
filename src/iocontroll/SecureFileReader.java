@@ -5,7 +5,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 
 public class SecureFileReader {
-	
+
 	private byte[] encryptKeyAES;
 	private byte[] signatureKeyAES;
 	private byte[] encryptedFile;
@@ -19,33 +19,40 @@ public class SecureFileReader {
 
 		inStream = new DataInputStream(new FileInputStream(path));
 
+		// 1. Länge des verschlüsselten geheimen Schlüssels
 		int encryptKeyAESlenght = inStream.readInt();
-		System.out.println(encryptKeyAESlenght);
+
+		// 2. Verschlüsselter geheimer Schlüssel
 		this.encryptKeyAES = new byte[encryptKeyAESlenght];
 		inStream.read(this.encryptKeyAES);
 
+		// 3. Länge der Signature des geheimen Schlüssel
 		int signatureKeyAESLenght = inStream.readInt();
-		System.out.println(signatureKeyAESLenght);
+
+		// 4. Signature des geheimen Schlüssels
 		this.signatureKeyAES = new byte[signatureKeyAESLenght];
 		inStream.read(this.signatureKeyAES);
-		
-		// TODO Algorithmische Parameter
 
+		// 5. Länge der algorithmischen Parameter des geheimen Schlüssel
+
+		// 6. Algorithmische Parameter des geheimen Schüssels
+
+		// 7. Verschlüsselte Dateidaten
 		this.encryptedFile = new byte[inStream.available()];
 		inStream.read(this.encryptedFile);
 
 		inStream.close();
 	}
-	
-	public byte[] getEncryptKeyAES(){
+
+	public byte[] getEncryptKeyAES() {
 		return this.encryptKeyAES;
 	}
-	
-	public byte[] getSignatureKeyAES(){
+
+	public byte[] getSignatureKeyAES() {
 		return this.signatureKeyAES;
 	}
-	
-	public byte[] getEncryptedFile(){
+
+	public byte[] getEncryptedFile() {
 		return this.encryptedFile;
 	}
 

@@ -34,7 +34,6 @@ public class RSF {
 			IllegalBlockSizeException, BadPaddingException, InvalidKeySpecException, IOException {
 
 		KeyRSAReader readerKeyRSA = new KeyRSAReader();
-		System.out.println("secureFileReader");
 		SecureFileReader secureFileReader = new SecureFileReader(fileIn);
 		FileWriter writerFile = new FileWriter();
 
@@ -48,7 +47,6 @@ public class RSF {
 		byte[] decryptedKeyAES = this.decryptKeyAES(encryptedKeyAES, keyRSAPrv);
 		byte[] decryptedFile = this.decryptedFile(decryptedKeyAES, encryptedFile);
 
-		// TODO Signatur prüfen
 		if (!this.validSignature(keyRSAPub, decryptedKeyAES, signatureKeyAES)) {
 			throw new IllegalArgumentException("signature uncorrect");
 		}
@@ -59,6 +57,7 @@ public class RSF {
 
 	private byte[] decryptedFile(byte[] decryptedKeyAES, byte[] encryptedFile) throws NoSuchAlgorithmException,
 			NoSuchPaddingException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
+
 		Cipher cipher = Cipher.getInstance(ALGORITHM_AES);
 		SecretKeySpec secretKeySpec = new SecretKeySpec(decryptedKeyAES, ALGORITHM_AES);
 
@@ -71,6 +70,7 @@ public class RSF {
 
 	private byte[] decryptKeyAES(byte[] encryptedKeyAES, PrivateKey keyRSAPrv) throws NoSuchAlgorithmException,
 			NoSuchPaddingException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
+
 		Cipher cipher = Cipher.getInstance(ALGORITHM_RSA);
 
 		cipher.init(Cipher.DECRYPT_MODE, keyRSAPrv);
@@ -92,29 +92,29 @@ public class RSF {
 
 	public static void main(String[] args) {
 
-		if (args.length == 4) {			
+		if (args.length == 4) {
 
 			try {
-				
+
 				RSF rsf = new RSF();
 				rsf.receiveSecureFile(args[0], args[1], args[2], args[3]);
-				
+
 			} catch (InvalidKeyException e) {
-				
+
 			} catch (NoSuchAlgorithmException e) {
-				
+
 			} catch (SignatureException e) {
-				
+
 			} catch (NoSuchPaddingException e) {
-				
+
 			} catch (IllegalBlockSizeException e) {
-				
+
 			} catch (BadPaddingException e) {
-				
+
 			} catch (InvalidKeySpecException e) {
-				
+
 			} catch (IOException e) {
-				
+
 			}
 
 		} else {
