@@ -23,7 +23,7 @@ public class SSF {
 
 	private final static String ALGORITHM_AES = "AES";
 	private final static String ALGORITHM_RSA = "RSA";
-	private final static String ALGORITHM_SIGNATUR = "SHA256withRSA";
+	private final static String ALGORITHM_SIGNATURE = "SHA256withRSA";
 	private final static String FILE_EXTENTION = ".ssf";
 	private final static int KEY_AES_LENGTH = 128;
 
@@ -67,11 +67,11 @@ public class SSF {
 	private byte[] generateSignaturForKeyAES(SecretKey keyAES, PrivateKey keyRSAPrv)
 			throws NoSuchAlgorithmException, InvalidKeyException, SignatureException {
 
-		Signature rsaSignatur = Signature.getInstance(ALGORITHM_SIGNATUR);
-		rsaSignatur.initSign(keyRSAPrv);
-		rsaSignatur.update(keyAES.getEncoded());
+		Signature rsaSignature = Signature.getInstance(ALGORITHM_SIGNATURE);
+		rsaSignature.initSign(keyRSAPrv);
+		rsaSignature.update(keyAES.getEncoded());
 
-		return rsaSignatur.sign();
+		return rsaSignature.sign();
 
 	}
 

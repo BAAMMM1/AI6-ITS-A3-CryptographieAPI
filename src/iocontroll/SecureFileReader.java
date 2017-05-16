@@ -29,7 +29,7 @@ public class SecureFileReader {
 		this.signatureKeyAES = new byte[signatureKeyAESLenght];
 		inStream.read(this.signatureKeyAES);
 		
-		// Algorithmische Parameter
+		// TODO Algorithmische Parameter
 
 		this.encryptedFile = new byte[inStream.available()];
 		inStream.read(this.encryptedFile);

@@ -4,6 +4,8 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.PrivateKey;
 import java.security.PublicKey;
+import java.security.Signature;
+import java.security.SignatureException;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
@@ -14,12 +16,12 @@ import javax.crypto.spec.SecretKeySpec;
 import iocontroll.FileWriter;
 import iocontroll.KeyRSAReader;
 import iocontroll.SecureFileReader;
-import sendSecureFile.SSF;
 
 public class RSF {
 
 	private final static String ALGORITHM_AES = "AES";
 	private final static String ALGORITHM_RSA = "RSA";
+	private final static String ALGORITHM_SIGNATURE = "SHA256withRSA";
 	private final static int KEY_AES_LENGTH = 128;
 
 	public RSF() {
@@ -42,7 +44,10 @@ public class RSF {
 		byte[] decryptedKeyAES = this.decryptKeyAES(encryptedKeyAES, keyRSAPrv);
 		byte[] decryptedFile = this.decryptedFile(decryptedKeyAES, encryptedFile);
 		
-		// Signatur prüfen
+		// TODO Signatur prüfen
+		if(!this.validSignature(keyRSAPub, decryptedKeyAES, signatureKeyAES)){
+			throw new Exception("signature uncorrect");
+		}
 		
 		writerFile.writeFile(decryptedFile, fileOut);
 
@@ -67,6 +72,17 @@ public class RSF {
 		cipher.init(Cipher.DECRYPT_MODE, keyRSAPrv);
 
 		return cipher.doFinal(encryptedKeyAES);
+	}
+	
+	private boolean validSignature(PublicKey keyRSAPub, byte[] decryptedKeyAES, byte[] signature) throws NoSuchAlgorithmException, InvalidKeyException, SignatureException{
+		
+		Signature rsaSignature = Signature.getInstance(ALGORITHM_SIGNATURE);
+		
+		rsaSignature.initVerify(keyRSAPub);
+		
+		rsaSignature.update(decryptedKeyAES);
+		
+		return rsaSignature.verify(signature);
 	}
 
 	public static void main(String[] args) throws Exception {
