@@ -5,7 +5,7 @@ import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.NoSuchAlgorithmException;
 
-import ioControll.KeyWriter;
+import iocontroll.KeyWriter;
 
 /*
  * Kann das hier eine SchluesselpaarFactory werden? bzw ein singleton?
@@ -18,11 +18,8 @@ import ioControll.KeyWriter;
  */
 public class RSAKeyCreation {	
 	
-	private final static String PATH = "res/keys/";
-	private final static String FILE_EXTENTION_PUBIC = ".pub";
-	private final static String FILE_EXTENTION_PRIVATE = ".prv";
-	private final static String ALGORITHM = "RSA";
-	private final static int KEY_LENGTH = 2048;
+	private final static String ALGORITHM_RSA = "RSA";
+	private final static int KEY_RSA_LENGTH = 2048;
 	
 	private KeyWriter keyWriter;
 	
@@ -32,14 +29,16 @@ public class RSAKeyCreation {
 	
 	
 	public void createKeyPeer(String fileName) throws NoSuchAlgorithmException, IOException{
+		// precondition test
+		// ist der owner Sring ok
 		
-		KeyPairGenerator generator = KeyPairGenerator.getInstance(ALGORITHM);
-		generator.initialize(KEY_LENGTH);
+		KeyPairGenerator generator = KeyPairGenerator.getInstance(ALGORITHM_RSA);
+		generator.initialize(KEY_RSA_LENGTH);
 		
 		KeyPair keyPair = generator.genKeyPair();
 			
-		this.keyWriter.writeFileBlockList(keyPair.getPublic(), PATH + fileName + FILE_EXTENTION_PUBIC);
-		this.keyWriter.writeFileBlockList(keyPair.getPrivate(), PATH + fileName + FILE_EXTENTION_PRIVATE);
+		this.keyWriter.write(keyPair.getPublic(), fileName);
+		this.keyWriter.write(keyPair.getPrivate(), fileName);
 		
 	}	
 	
