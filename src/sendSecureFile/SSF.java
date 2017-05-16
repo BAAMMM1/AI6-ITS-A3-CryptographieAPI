@@ -117,6 +117,7 @@ public class SSF {
 		// 5. Länge der algorithmischen Parameter des geheimen Schlüssel
 
 		// 6. Algorithmische Parameter des geheimen Schüssels
+		// Sehe CipherEncryption Zeile 112
 
 		// 7. Verschlüsselte Dateidaten
 		bb.put(encryptedFile);

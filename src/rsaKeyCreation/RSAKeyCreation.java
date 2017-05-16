@@ -11,7 +11,6 @@ import iocontroll.KeyWriter;
  * Diese Klasse erzeugt ein RSA-Schluesselpaar (Schluessellaenge: 2048 Bit),
  * welche in einer Datei gespeichert werden. Der Name des Inhaber des
  * Schlüsselpaares wird in der Kommandozeile mit übergeben.
- * 
  */
 public class RSAKeyCreation {
 
