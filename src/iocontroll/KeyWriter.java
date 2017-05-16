@@ -9,8 +9,8 @@ import java.security.PublicKey;
 
 /**
  * Diese Klasse ist dafür zuständig ein Key in eine Datei zuschreiben. Der Name
- * der Ausgabedatei ist davon abhängig ob ein Public- oder Private-Key
- * geschrieben wird.
+ * der Ausgabedatei ist davon abhängig ob ein Public- oder Private-Key übergeben
+ * wird und dem Name des Inhaber des Schlüssels.
  */
 public class KeyWriter {
 
