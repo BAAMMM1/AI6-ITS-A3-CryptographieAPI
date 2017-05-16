@@ -1,4 +1,4 @@
-package rsaKeyCreation;
+package keyRSACreation;
 
 import java.io.IOException;
 import java.security.KeyPair;
