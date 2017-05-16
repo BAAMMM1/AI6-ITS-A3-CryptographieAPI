@@ -8,39 +8,61 @@ import java.security.PrivateKey;
 import java.security.PublicKey;
 
 public class KeyWriter {
-	
+
 	private final static String PATH = "";
 	private final static String FILE_EXTENTION_PUBIC = ".pub";
 	private final static String FILE_EXTENTION_PRIVATE = ".prv";
 
 	public KeyWriter() {
-		
+
 	}
-	
+
+	/**
+	 * Diese Methode erlaubt es einen Schluessel in einem File abzuspeichern.
+	 * 
+	 * @param key
+	 * @param fileName
+	 * @throws IOException
+	 */
 	public void write(Key key, String fileName) throws IOException {
 		// precondition test
 		// Ist der key nicht null
-		
-		DataOutputStream outStream;
-		
-		outStream = new DataOutputStream(new FileOutputStream(this.getFilePath(key, fileName)));		
 
-		byte[] keyAsByteArray = key.getEncoded();
-		
+		DataOutputStream outStream = new DataOutputStream(new FileOutputStream(this.getFilePath(key, fileName)));
+
+		byte[] keyBytes = key.getEncoded();
+
+		// 1. Länge des Inhaber-Namens
 		outStream.writeInt(fileName.length());
+
+		// 2. Inhaber-Name
 		outStream.write(fileName.getBytes());
-		outStream.writeInt(keyAsByteArray.length);
-		outStream.write(keyAsByteArray);
+
+		// 3.Länge des Schlüssels
+		outStream.writeInt(keyBytes.length);
+
+		// 4. Schlüssel
+		outStream.write(keyBytes);
+
 		outStream.close();
 	}
-	
-	private String getFilePath(Key key, String fileName){
-		if(key instanceof PublicKey){
+
+	/**
+	 * Diese Mehtode ermittelt die Dateiendungen für den Dateinamen. Der
+	 * Dateinamen ist von der Art des Keys abhängig.
+	 * 
+	 * @param key
+	 *            PublicKey or PrivateKey
+	 * @param fileName
+	 * @return path for the key to save
+	 */
+	private String getFilePath(Key key, String fileName) {
+		if (key instanceof PublicKey) {
 			return PATH + fileName + FILE_EXTENTION_PUBIC;
-		} else if (key instanceof PrivateKey){
+		} else if (key instanceof PrivateKey) {
 			return PATH + fileName + FILE_EXTENTION_PRIVATE;
 		} else {
-			return null;
+			throw new IllegalArgumentException("only <PublicKey> oder <PrivateKey> accepted");
 		}
 	}
 

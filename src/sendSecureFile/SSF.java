@@ -1,5 +1,6 @@
 package sendSecureFile;
 
+import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
@@ -7,6 +8,7 @@ import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.Signature;
 import java.security.SignatureException;
+import java.security.spec.InvalidKeySpecException;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
@@ -31,9 +33,9 @@ public class SSF {
 
 	}
 
-	public void sendSecureFile(String privateKey, String publicKey, String fileIn, String fileOut) throws Exception {
-
-		// Exceptions hier abfangen
+	public void sendSecureFile(String privateKey, String publicKey, String fileIn, String fileOut)
+			throws NoSuchAlgorithmException, InvalidKeySpecException, IOException, InvalidKeyException,
+			SignatureException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException {
 
 		KeyRSAReader readerKeyRSA = new KeyRSAReader();
 		FileReader readerFile = new FileReader();
@@ -98,14 +100,19 @@ public class SSF {
 	private byte[] createOutputFile(byte[] encryptKeyAES, byte[] signatureKeyAES, byte[] encryptedFile) {
 
 		ByteBuffer bb = ByteBuffer.allocate(8 + encryptKeyAES.length + signatureKeyAES.length + encryptedFile.length);
+		
 		// 1.
 		bb.putInt(encryptKeyAES.length);
+		
 		// 2.
 		bb.put(encryptKeyAES);
+		
 		// 3.
 		bb.putInt(signatureKeyAES.length);
+		
 		// 4.
 		bb.put(signatureKeyAES);
+		
 		// 5.
 
 		// 6.
@@ -116,11 +123,33 @@ public class SSF {
 		return bb.array();
 	}
 
-	public static void main(String[] args) throws Exception {
+	public static void main(String[] args) {
 
 		if (args.length == 4) {
-			SSF sff = new SSF();
-			sff.sendSecureFile(args[0], args[1], args[2], args[3]);
+			
+			try {
+				SSF sff = new SSF();
+				
+				sff.sendSecureFile(args[0], args[1], args[2], args[3]);
+				
+			} catch (InvalidKeyException e) {
+
+			} catch (NoSuchAlgorithmException e) {
+				
+			} catch (InvalidKeySpecException e) {
+				
+			} catch (SignatureException e) {
+				
+			} catch (NoSuchPaddingException e) {
+				
+			} catch (IllegalBlockSizeException e) {
+				
+			} catch (BadPaddingException e) {
+				
+			} catch (IOException e) {
+				
+			}
+			
 		} else {
 			throw new IllegalArgumentException("valid argument: <privateKey> <publicKey> <fileIn> <filOut>");
 		}

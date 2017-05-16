@@ -10,7 +10,7 @@ public class SecureFileReader {
 	private byte[] signatureKeyAES;
 	private byte[] encryptedFile;
 
-	public SecureFileReader(String path) throws Exception {
+	public SecureFileReader(String path) throws IOException {
 		this.readSecureFile(path);
 	}
 
