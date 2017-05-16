@@ -7,6 +7,11 @@ import java.security.Key;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 
+/**
+ * Diese Klasse ist dafür zuständig ein Key in eine Datei zuschreiben. Der Name
+ * der Ausgabedatei ist davon abhängig ob ein Public- oder Private-Key
+ * geschrieben wird.
+ */
 public class KeyWriter {
 
 	private final static String PATH = "";
@@ -21,7 +26,9 @@ public class KeyWriter {
 	 * Diese Methode erlaubt es einen Schluessel in einem File abzuspeichern.
 	 * 
 	 * @param key
+	 *            PublicKey or PrivateKey
 	 * @param fileName
+	 *            Inhaber-Name
 	 * @throws IOException
 	 */
 	public void write(Key key, String fileName) throws IOException {
