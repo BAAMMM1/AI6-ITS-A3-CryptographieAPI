@@ -42,6 +42,9 @@ import utility.ByteUtility;
  * 
  * Zum Schluß wird die Signatur für den geheimen AES-Schlüssel mit dem
  * öffentlichen RSA‐Schlüssel (Algorithmus: „SHA256withRSA“) überprüft.
+ * 
+ * Der symmetrische AES-Schlüssel wird über das asymmetrisch RSA
+ * Private-/Public-Key-Verfahren getauscht.
  */
 public class RSF {
 

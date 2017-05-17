@@ -41,6 +41,9 @@ import utility.ByteUtility;
  * („CTR“) verschlüsselt
  * 
  * Abschließend wird eine Ausgabedatei erzeugt und geschrieben.
+ * 
+ * Der symmetrische AES-Schlüssel wird über das asymmetrisch RSA
+ * Private-/Public-Key-Verfahren getauscht.
  */
 public class SSF {
 

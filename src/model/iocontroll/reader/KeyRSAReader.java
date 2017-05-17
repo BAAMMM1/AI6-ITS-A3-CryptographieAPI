@@ -46,11 +46,11 @@ public class KeyRSAReader {
 		String fileExtention = path.substring(path.indexOf("."));
 
 		if (fileExtention.equals(".pub")) {
-			// Der öffentliche Schlüssel liegt im X.509-Format vor
+			// Der öffentliche Schlüssel liegt im Zertifikat X.509-Format vor
 			return keyFactory.generatePublic(new X509EncodedKeySpec(this.readKeyFile(path)));
 
 		} else if (fileExtention.equals(".prv")) {
-			// Der private Schlüssel liegt im PKCS8-Format vor
+			// Der private Schlüssel liegt im Spezifikations PKCS8-Format vor
 			return keyFactory.generatePrivate(new PKCS8EncodedKeySpec(this.readKeyFile(path)));
 
 		} else {
