@@ -14,7 +14,7 @@ public class CipherEncryption {
 
 	public static void main(String[] argv) {
 		CipherEncryption myTest = new CipherEncryption();
-		myTest.performTest();DECRYPT_MODE
+		myTest.performTest();
 	}
 
 	public void performTest() {

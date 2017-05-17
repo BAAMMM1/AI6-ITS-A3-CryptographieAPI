@@ -23,13 +23,22 @@ public class RSAKeyCreation {
 		this.keyWriter = new KeyRSAWriter();
 	}
 
-	public void createKeyPeer(String ownerName) throws NoSuchAlgorithmException, IOException {
+	/**
+	 * Diese Methode erzeugt eine Public-/Private-Keypaar des Typs RSA und
+	 * schreibt es in eine Datei.
+	 * 
+	 * @param ownerName
+	 *            Name des Besitzter der Keys
+	 * @throws NoSuchAlgorithmException
+	 *             Falls der RSA Algorithmus nicht gefunden werden kann
+	 * @throws IOException
+	 *             Falls die Datei nicht geschrieben werden kann
+	 */
+	public void createKeyPeer(String ownerName) throws NoSuchAlgorithmException, IOException {		
 		/*
 		 * 1. Erstellung eines Public-/Private-Key-Paares
-		 */
-		KeyPairGenerator generator;
-
-		generator = KeyPairGenerator.getInstance(ALGORITHM_RSA);
+		 */		
+		KeyPairGenerator generator = KeyPairGenerator.getInstance(ALGORITHM_RSA);
 
 		generator.initialize(KEY_RSA_LENGTH);
 
@@ -37,12 +46,19 @@ public class RSAKeyCreation {
 
 		/*
 		 * 2. Speicherung des Public- und Private-Key
+		 * Format: PublicKey: X.509, PrivateKey: PKCS#8
 		 */
 		this.keyWriter.write(keyPair.getPublic(), ownerName);
 		this.keyWriter.write(keyPair.getPrivate(), ownerName);
 
 	}
 
+	/**
+	 * Der Name des Inhaber wird als Argument in der Kommandozeile übergeben.
+	 * 
+	 * @param args
+	 *            [0]=Inhabername
+	 */
 	public static void main(String[] args) {
 
 		if (args.length == 1) {
@@ -56,7 +72,7 @@ public class RSAKeyCreation {
 				System.out.println("error: algorithm not found");
 
 			} catch (IOException e) {
-				System.out.println("error: input/output");
+				System.out.println("error: output");
 			}
 
 		} else {

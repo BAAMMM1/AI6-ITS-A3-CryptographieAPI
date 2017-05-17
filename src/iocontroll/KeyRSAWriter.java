@@ -32,8 +32,6 @@ public class KeyRSAWriter {
 	 * @throws IOException
 	 */
 	public void write(Key key, String fileName) throws IOException {
-		// precondition test
-		// Ist der key nicht null
 
 		DataOutputStream outStream = new DataOutputStream(new FileOutputStream(this.getFilePath(key, fileName)));
 
@@ -64,10 +62,13 @@ public class KeyRSAWriter {
 	 * @return path for the key to save
 	 */
 	private String getFilePath(Key key, String fileName) {
+
 		if (key instanceof PublicKey) {
 			return PATH + fileName + FILE_EXTENTION_PUBIC;
+
 		} else if (key instanceof PrivateKey) {
 			return PATH + fileName + FILE_EXTENTION_PRIVATE;
+
 		} else {
 			throw new IllegalArgumentException("only <PublicKey> oder <PrivateKey> accepted");
 		}

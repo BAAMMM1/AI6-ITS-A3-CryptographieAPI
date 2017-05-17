@@ -79,6 +79,24 @@ public class ReadSignedFile extends Object {
 			KeyFactory keyFac = KeyFactory.getInstance("RSA");
 			PublicKey pubKey = keyFac.generatePublic(x509KeySpec);
 
+			/*
+			 * 
+			 * 
+			 * 
+			 * 
+			 * 
+			 * 
+			 * 
+			 * 
+			 * 
+			 * 
+			 * 
+			 * 
+			 * 
+			 * 
+			 * 
+			 * 
+			 */
 			// Nun wird die Signatur ueberprueft
 			// als Erstes erzeugen wir das Signatur-Objekt
 			Signature rsaSig = Signature.getInstance("SHA256withRSA");

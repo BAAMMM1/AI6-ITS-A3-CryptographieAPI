@@ -22,6 +22,7 @@ import iocontroll.SecureFileReader;
 public class RSF {
 
 	private final static String ALGORITHM_AES = "AES";
+	private final static String ALGORITHM_AES_CTR = "AES/CTR/NoPadding";
 	private final static String ALGORITHM_RSA = "RSA";
 	private final static String ALGORITHM_SIGNATURE = "SHA256withRSA";
 
@@ -46,12 +47,14 @@ public class RSF {
 
 		byte[] decryptedKeyAES = this.decryptKeyAES(encryptedKeyAES, keyRSAPrv);
 		byte[] decryptedFile = this.decryptedFile(decryptedKeyAES, encryptedFile);
-
+		
+		writerFile.writeFile(decryptedFile, fileOut);
+		
 		if (!this.validSignature(keyRSAPub, decryptedKeyAES, signatureKeyAES)) {
-			throw new IllegalArgumentException("signature uncorrect");
+			throw new IllegalArgumentException("signature incorrect");
 		}
 
-		writerFile.writeFile(decryptedFile, fileOut);
+		
 
 	}
 
