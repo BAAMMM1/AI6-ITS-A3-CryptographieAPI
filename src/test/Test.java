@@ -28,6 +28,7 @@ public class Test {
 
 		RSF.main(new String[] { TEST_PATH_01 + "FMeier.prv", TEST_PATH_01 + "KMueller.pub", TEST_PATH_01 + "Brief.ssf",
 				TEST_PATH_01 + "BriefOut.pdf" });
+		
 
 	}
 
