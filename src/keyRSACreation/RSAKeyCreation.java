@@ -5,7 +5,7 @@ import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.NoSuchAlgorithmException;
 
-import iocontroll.KeyWriter;
+import iocontroll.KeyRSAWriter;
 
 /**
  * Diese Klasse erzeugt ein RSA-Schluesselpaar (Schluessellaenge: 2048 Bit),
@@ -17,10 +17,10 @@ public class RSAKeyCreation {
 	private final static String ALGORITHM_RSA = "RSA";
 	private final static int KEY_RSA_LENGTH = 2048;
 
-	private KeyWriter keyWriter;
+	private KeyRSAWriter keyWriter;
 
 	public RSAKeyCreation() {
-		this.keyWriter = new KeyWriter();
+		this.keyWriter = new KeyRSAWriter();
 	}
 
 	public void createKeyPeer(String ownerName) throws NoSuchAlgorithmException, IOException {

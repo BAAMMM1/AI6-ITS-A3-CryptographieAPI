@@ -13,7 +13,7 @@ public class FileWriter {
 		DataOutputStream outStream;
 		
 		try {			
-			outStream =new DataOutputStream(new FileOutputStream(path));
+			outStream = new DataOutputStream(new FileOutputStream(path));
 			
 			outStream.write(file);
 			

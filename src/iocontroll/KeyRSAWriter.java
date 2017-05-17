@@ -12,13 +12,13 @@ import java.security.PublicKey;
  * der Ausgabedatei ist davon abhängig ob ein Public- oder Private-Key übergeben
  * wird und dem Name des Inhaber des Schlüssels.
  */
-public class KeyWriter {
+public class KeyRSAWriter {
 
 	private final static String PATH = "";
 	private final static String FILE_EXTENTION_PUBIC = ".pub";
 	private final static String FILE_EXTENTION_PRIVATE = ".prv";
 
-	public KeyWriter() {
+	public KeyRSAWriter() {
 
 	}
 
