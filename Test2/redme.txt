@@ -1,0 +1,2 @@
+Usage: java RSFTest filename.prv filename.pub ssf-filename doc-filename
+java RSFTest Test.prv Christian.pub test2.ssf out.pdf
